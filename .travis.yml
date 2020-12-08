@@ -1,5 +1,8 @@
 language: php
 os: linux
+arch:
+- amd64
+- ppc64le
 dist: trusty
 php:
 - '5.4'
@@ -39,5 +42,22 @@ jobs:
       on:
         repo: apereo/phpCAS
         tags: true
+   - stage: GitHub Release
+    php: '7.2'
+    arch: ppc64le
+    services:
+    - docker
+    script:
+    - docker run --rm -it -v $PWD:/app centos:centos7 /app/utils/build.sh
+    deploy:
+      provider: releases
+      file_glob: true
+      file: utils/dist/CAS-*.tgz
+      skip_cleanup: true
+      token:
+        secure: IQPP9ytdAxMQpXdfHsbnWaly7BiORVeCCfgKBPtQqtuakTBkNltPMmPHIhH2ihnQ0/fOUL4DpbiQdCIEVVIQgerdWK+WjMhGmyRyt8froqT1GOJfcKXMBxxaLWpQS53R/jWt4cWs9DNgkFXtbe5MlV/czaoFsMQowoEV+fnwYKg=
+      on:
+        repo: apereo/phpCAS
+        tags: true 
 notifications:
   email: false
