@@ -42,7 +42,7 @@ jobs:
       on:
         repo: apereo/phpCAS
         tags: true
-   - stage: GitHub Release
+  - stage: GitHub Release
     php: '7.2'
     arch: ppc64le
     services:
